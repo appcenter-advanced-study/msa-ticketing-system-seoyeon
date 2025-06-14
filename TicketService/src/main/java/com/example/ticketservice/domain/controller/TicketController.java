@@ -15,13 +15,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/ticket-service")
+@RequestMapping("/ticket")
 @RequiredArgsConstructor
 public class TicketController {
     private final TicketService ticketService;
     private final KafkaProducer kafkaProducer;
 
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<CreateTicketResponse> create(@RequestBody CreateTicketRequest request){
         CreateTicketResponse response = ticketService.createTicket(request);
         StockCreateEvent event = response.toEvent();

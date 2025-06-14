@@ -10,15 +10,15 @@ eureka:
 
 spring:
   application:
-    name: api-gateWay
+    name: api-gateway
   cloud:
     routes:
-      - id: reservation-service
+      - id: reservation-servicef
         uri: lb://RESERVATION-SERVICE
         predicates:
           - Path=/reservation/**
       - id: ticket-service
-        uri: lb://TICKET-SERVICE
+        uri: lb://TICKETSERVICE
         predicates:
           - Path=/ticket/**
       - id: ticket-stock-service
