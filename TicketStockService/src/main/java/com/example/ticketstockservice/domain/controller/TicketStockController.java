@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/ticket-stock-service")
+@RequestMapping("/ticket-stock")
 @RequiredArgsConstructor
 public class TicketStockController {
     private final TicketStockService ticketStockService;

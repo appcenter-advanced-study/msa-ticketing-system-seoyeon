@@ -3,8 +3,6 @@ server:
 
 eureka:
   client:
-    register-with-eureka: true
-    fetch-registry: true
     service-url:
       defaultZone: http://localhost:8761/eureka
 
@@ -12,16 +10,29 @@ spring:
   application:
     name: api-gateway
   cloud:
-    routes:
-      - id: reservation-servicef
-        uri: lb://RESERVATION-SERVICE
-        predicates:
-          - Path=/reservation/**
-      - id: ticket-service
-        uri: lb://TICKETSERVICE
-        predicates:
-          - Path=/ticket/**
-      - id: ticket-stock-service
-        uri: lb://TICKET-STOCK-SERVICE
-        predicates:
-          - Path=/ticket-stock/**
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+        - id: reservation-service
+          uri: lb://reservation-service
+          predicates:
+            - Path=/api/v1/reservation/**
+            - Method=POST, PUT, DELETE
+        - id: stock-service
+          uri: lb://stock-service
+          predicates:
+            - Path=/api/v1/stocks/**
+            - Method=POST, PUT, DELETE
+        - id: ticket-service
+          uri: lb://ticket-service
+          predicates:
+            - Path=/api/v1/tickets/**
+            - Method=POST, PUT, DELETE
+        - id: query-service
+          uri: lb://query-service
+          predicates:
+            - Path=/api/v1/queries/**
+            - Method=GET
