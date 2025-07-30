@@ -8,9 +8,11 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class ReservationEventPublisher {
     private final KafkaTemplate<String, ReservationEvent> kafkaTemplate;
-    private static final String TOPIC = "reservation-event";
+    public void publishReservationCreated(ReservationCreatedEvent event) {
+        kafkaTemplate.send("reservation.created", event);
+    }
 
-    public void publishReservationCreatedEvent(ReservationEvent reservationEvent) {
-        kafkaTemplate.send(TOPIC, reservationEvent);
+    public void publishReservationCancelled(ReservationCancelledEvent event) {
+        kafkaTemplate.send("reservation.cancel", event);
     }
 }

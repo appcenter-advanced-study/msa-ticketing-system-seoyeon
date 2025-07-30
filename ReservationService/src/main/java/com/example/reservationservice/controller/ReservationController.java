@@ -15,15 +15,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ReservationController {
     private final ReservationService reservationService;
-    private final ReservationEventPublisher reservationEventPublisher;
+    //private final ReservationEventPublisher reservationEventPublisher;
 
     @PostMapping
     public ResponseEntity<Void> makeReservation(@RequestParam String username, @RequestParam Long ticketId) {
-        ReservationEvent event = ReservationEvent.builder()
-                .username(username)
-                .ticketId(ticketId)
-                .build();
-        reservationEventPublisher.publishReservationCreatedEvent(event);
+        reservationService.createReservation(username, ticketId);
         return ResponseEntity.ok().build();
     }
 

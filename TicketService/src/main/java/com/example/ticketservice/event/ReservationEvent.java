@@ -1,6 +1,8 @@
-package com.example.reservationservice.event;
+package com.example.ticketservice.event;
 
-import lombok.*;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
