@@ -1,37 +1,30 @@
 package com.example.reservationservice.domain;
 
-import com.example.reservationservice.domain.dto.CreateReservationResponse;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Getter
 @Entity
+@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String user_name;
+    @Column(length = 200)
+    private String username;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "ticket_id", nullable = false)
     private Long ticketId;
 
-    @Builder
-    private Reservation(String user_name, Long ticketId){
-        this.user_name=user_name; this.ticketId=ticketId;
+    public Reservation(String username, Long ticketId) {
+        this.username = username;
+        this.ticketId = ticketId;
     }
 
-    public CreateReservationResponse toDto(Integer ticketStock){
-        return CreateReservationResponse.builder()
-                .reservation_id(this.id)
-                .ticket_id(this.ticketId)
-                .user_name(this.user_name)
-                .ticket_stock(ticketStock)
-                .build();
+    public void updateReservation(String username, Long ticketId) {
+        this.ticketId = ticketId != null ? ticketId : this.ticketId;
+        this.username = username != null ? username : this.username;
     }
 }
